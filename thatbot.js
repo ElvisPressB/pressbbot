@@ -1,6 +1,9 @@
 var tmi = require('tmi.js');
 const login = require('./login');
 
+//This is a static load. Can update later to be asynch call so that channels can be added dynamically if needed
+var channelsFile = require('./channels.json');
+
 // TMI OPTIONS
 var options = {
 	options: {
@@ -11,10 +14,10 @@ var options = {
 		reconnect: true
 	},
 	identity: {
-		username: "PressB_Bot",
-		password: login.auth()
+		username: login.creds.user,
+		password: login.creds.auth
 	},
-	channels: ["ElvisPressB"]
+	channels: channelsFile
 };
 // END TMI OPTIONS
 
