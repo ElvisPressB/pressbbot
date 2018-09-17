@@ -6,6 +6,7 @@ const login = require('./login');
 var channelsFile = require('./channels.json');
 var admins = require('./admins.json');
 var settingsJSON = require('./commandSettings.json');
+var liveSettings = new Object();
 
 // TMI OPTIONS
 var options = {
@@ -37,13 +38,6 @@ client.on('connected', function(address, port) {
 });
 // end set up, connect and console log client information
 
-// create various objects in memory
-if (typeof Cooldowns !== 'object') { 
-	var Cooldowns = new Object();
-}
-
-// end create various objects in memory
-
 // various command cooldown variables
 const soCD = 5;
 const multiCD = 5;
@@ -62,72 +56,22 @@ function checkMod(user, channel) {
 	}
 }
 
-// create cooldowns in memory
-	if (typeof Cooldowns.color == 'undefined') {
-		Cooldowns.color = 0;
-		console.log('Color not changed');
-	}
-
-
-Cooldowns = jerx.initCooldowns(Cooldowns, settingsJSON.channels[1].commands);
-
 // vvvv Attempting to create a channel named object in memory upon joining a channel and store cooldowns on it vvvv
 // tried upper and lowercase, tried multiple variable switches as the channelName variable alone was not giving the desired results and or was getting lost
 
-/* elvis
 
 client.on("join", function (channel, username, self) {
-
-	var channelName = channel.replace("#", "");
-	var channelObj = channelName;
-	console.log(channelObj);
-	var channelObj = new Object();
-		channelObj.name = channelName;
-	console.log(channelObj);
-
-if (typeof channelObj.discord == 'undefined') {
-	channelObj.discord = new Date();
-	console.log('Discord cmd cooldown: ' + channelObj.discord);
-}
-
-if (typeof channelObj.hype == 'undefined') {
-		channelObj.hype = new Date();
-		console.log('Hype cmd cooldown: ' + channelObj.hype);
-}
-
-if (typeof channelObj.insta == 'undefined') {
-		channelObj.insta = new Date();
-		console.log('Insta cmd cooldown: ' + channelObj.insta);
-}
-
-if (typeof channelObj.lurk == 'undefined') {
-		channelObj.lurk = new Date();
-		console.log('Lurk cmd cooldown: ' + channelObj.lurk);
-}
-
-if (typeof channelObj.prime == 'undefined') {
-		channelObj.prime = new Date();
-		console.log('Prime cmd cooldown: ' + channelObj.prime);
-}
-
-if (typeof channelObj.raid == 'undefined') {
-		channelObj.raid = new Date();
-		console.log('Raid cmd cooldown: ' + channelObj.raid);
-}
-
-if (typeof channelObj.so == 'undefined') {
-		channelObj.so = new Date();
-		console.log('SO cmd cooldown: ' + channelObj.so);
-}
-
-if (typeof channelObj.multi == 'undefined') {
-	channelObj.multi = new Date();
-	console.log('Multi cmd cooldown: ' + channelObj.multi);
-}
-
+	if(typeof liveSettings[channel] === "undefined")
+		liveSettings[channel] = new Object();
+	if(typeof liveSettings[channel].Cooldowns === "undefined")
+		liveSettings[channel].Cooldowns = new Object();
+	jerx.log("Initiating cooldowns for channel: "+channel);
+	var settings = jerx.getChannelSettings(settingsJSON, channel);
+	var commands = settings.commands;
+	liveSettings[channel].Cooldowns = jerx.initCooldowns(liveSettings[channel].Cooldowns, commands);
+	//client.color(typeof settings != "undefined" ? ( typeof settings.color == "string"? settings.color: "Red") : "Red");
+	client.color("Red");
 }); 
-
-*/
 
 // ^^^^ Attempting to create a channel named object in memory upon joining a channel and store cooldowns on it ^^^^
 
@@ -136,13 +80,8 @@ client.on('chat', function(channel, user, message, self) {
 	
 	var settings = jerx.getChannelSettings(settingsJSON, channel);
 	//console.log("The name of the settings is: "+settings.name+" and their preferred color is: "+settings.color);
+	var Cooldowns = liveSettings[channel].Cooldowns;
 	
-	
-	if (Cooldowns.color === 0) {
-		client.color(typeof settings != "undefined" ? ( typeof settings.color == "string"? settings.color: "Red") : "Red");
-		Cooldowns.color = 1;
-	}
-
 	if (message) {
 
 		var parsed = jerx.parse(message);
@@ -167,7 +106,7 @@ client.on('chat', function(channel, user, message, self) {
 				jerx.log(replaced);
 			}
 			
-			if(command.matched) {
+			if(command.matched && command.allowed) {
 				
 				// this is part of the attempt to implement channel named objects in memory elvis
 				// for some reason the channel name variable doesn't seem to be transferring into the switch case, tested with discord command but since reverted
