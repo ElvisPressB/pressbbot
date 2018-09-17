@@ -41,6 +41,7 @@ client.on('connected', function(address, port) {
 if (typeof Cooldowns !== 'object') { 
 	var Cooldowns = new Object();
 }
+
 // end create various objects in memory
 
 // various command cooldown variables
@@ -62,55 +63,73 @@ function checkMod(user, channel) {
 }
 
 // create cooldowns in memory
-if (typeof Cooldowns.color == 'undefined') {
+	if (typeof Cooldowns.color == 'undefined') {
 		Cooldowns.color = 0;
-		console.log('Color cooldown: ' + Cooldowns.color);
-}
+		console.log('Color not changed');
+	}
 
 
 Cooldowns = jerx.initCooldowns(Cooldowns, settingsJSON.channels[1].commands);
-/*
-if (typeof Cooldowns.discord == 'undefined') {
-		Cooldowns.discord = new Date();
-		console.log('Discord cmd cooldown: ' + Cooldowns.discord);
+
+// vvvv Attempting to create a channel named object in memory upon joining a channel and store cooldowns on it vvvv
+// tried upper and lowercase, tried multiple variable switches as the channelName variable alone was not giving the desired results and or was getting lost
+
+/* elvis
+
+client.on("join", function (channel, username, self) {
+
+	var channelName = channel.replace("#", "");
+	var channelObj = channelName;
+	console.log(channelObj);
+	var channelObj = new Object();
+		channelObj.name = channelName;
+	console.log(channelObj);
+
+if (typeof channelObj.discord == 'undefined') {
+	channelObj.discord = new Date();
+	console.log('Discord cmd cooldown: ' + channelObj.discord);
 }
 
-if (typeof Cooldowns.hype == 'undefined') {
-		Cooldowns.hype = new Date();
-		console.log('Hype cmd cooldown: ' + Cooldowns.hype);
+if (typeof channelObj.hype == 'undefined') {
+		channelObj.hype = new Date();
+		console.log('Hype cmd cooldown: ' + channelObj.hype);
 }
 
-if (typeof Cooldowns.insta == 'undefined') {
-		Cooldowns.insta = new Date();
-		console.log('Insta cmd cooldown: ' + Cooldowns.insta);
+if (typeof channelObj.insta == 'undefined') {
+		channelObj.insta = new Date();
+		console.log('Insta cmd cooldown: ' + channelObj.insta);
 }
 
-if (typeof Cooldowns.lurk == 'undefined') {
-		Cooldowns.lurk = new Date();
-		console.log('Lurk cmd cooldown: ' + Cooldowns.lurk);
+if (typeof channelObj.lurk == 'undefined') {
+		channelObj.lurk = new Date();
+		console.log('Lurk cmd cooldown: ' + channelObj.lurk);
 }
 
-if (typeof Cooldowns.prime == 'undefined') {
-		Cooldowns.prime = new Date();
-		console.log('Prime cmd cooldown: ' + Cooldowns.prime);
+if (typeof channelObj.prime == 'undefined') {
+		channelObj.prime = new Date();
+		console.log('Prime cmd cooldown: ' + channelObj.prime);
 }
 
-if (typeof Cooldowns.raid == 'undefined') {
-		Cooldowns.raid = new Date();
-		console.log('Raid cmd cooldown: ' + Cooldowns.raid);
+if (typeof channelObj.raid == 'undefined') {
+		channelObj.raid = new Date();
+		console.log('Raid cmd cooldown: ' + channelObj.raid);
 }
 
-if (typeof Cooldowns.so == 'undefined') {
-		Cooldowns.so = new Date();
-		console.log('SO cmd cooldown: ' + Cooldowns.so);
+if (typeof channelObj.so == 'undefined') {
+		channelObj.so = new Date();
+		console.log('SO cmd cooldown: ' + channelObj.so);
 }
 
-if (typeof Cooldowns.multi == 'undefined') {
-	Cooldowns.multi = new Date();
-	console.log('Multi cmd cooldown: ' + Cooldowns.multi);
+if (typeof channelObj.multi == 'undefined') {
+	channelObj.multi = new Date();
+	console.log('Multi cmd cooldown: ' + channelObj.multi);
 }
+
+}); 
+
 */
-// end create cooldown Date()s in memory
+
+// ^^^^ Attempting to create a channel named object in memory upon joining a channel and store cooldowns on it ^^^^
 
 client.on('chat', function(channel, user, message, self) {
 	if(self) return;
@@ -149,6 +168,15 @@ client.on('chat', function(channel, user, message, self) {
 			}
 			
 			if(command.matched) {
+				
+				// this is part of the attempt to implement channel named objects in memory elvis
+				// for some reason the channel name variable doesn't seem to be transferring into the switch case, tested with discord command but since reverted
+				
+				/* 
+				var channelName = channel.replace("#", "");
+				var channelObj = channelName; 
+				*/
+				
 				switch (parsed.command) {
 					case "!raid":
 						if(!command.modOnly || (command.modOnly && checkMod(user, channel))) {
@@ -206,7 +234,7 @@ client.on('chat', function(channel, user, message, self) {
 								client.say(channel, command.message.replace("$username", user['display-name']));
 								Cooldowns[parsed.command] = new Date(); // the discord cooldown is refreshed with the current Date()
 							} else {
-								console.log("Discord cooldown not up"); // otherwise we get a console log that the cooldown isn't up
+								console.log("Discord cooldown not up: " + Cooldowns[parsed.command]); // otherwise we get a console log that the cooldown isn't up
 							}
 						}
 						break;
