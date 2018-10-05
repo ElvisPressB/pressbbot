@@ -106,31 +106,41 @@
 					"trigger": "!hype",
 					"cooldown": 5,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "Squid1 Squid2 Squid2 Squid3 Squid2 Squid2 Squid4",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!insta",
 					"cooldown": 15,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "@$username, check out Elvis' weird pictures here! https://www.instagram.com/elvispressb/",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!lurk",
 					"cooldown": 5,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "shows @$username to a comfortable seat in the lurker section.",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!prime",
 					"cooldown": 30,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "@$username, How to link your Twitch and Amazon Prime: https://help.twitch.tv/customer/portal/articles/2574978-how-to-link-your-amazon-account You can use your free prime sub to get a *sweet* savage emote! It's a great way to directly support Elvis!",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!raid",
 					"cooldown": 5,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "TombRaid twitchRaid TombRaid twitchRaid TombRaid twitchRaid TombRaid twitchRaid TombRaid twitchRaid",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!so",
