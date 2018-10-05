@@ -99,44 +99,54 @@
 					"cooldown": 15,
 					"allowed": true,
 					"modOnly": false,
-					"message": "@$username, the PressB community Discord: https://discord.gg/x3HmECn",
+					"message": "@$username, the PressB community Discord: https://discord.gg/NjGMh3s",
 					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!hype",
 					"cooldown": 5,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "Squid1 Squid2 Squid2 Squid3 Squid2 Squid2 Squid4",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!insta",
 					"cooldown": 15,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "@$username, check out Elvis' pictures here! https://www.instagram.com/elvispressb/",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!lurk",
 					"cooldown": 5,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "shows @$username to a comfortable seat in the lurker section.",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!prime",
 					"cooldown": 30,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "@$username, How to link your Twitch and Amazon Prime: https://help.twitch.tv/customer/portal/articles/2574978-how-to-link-your-amazon-account You can use your free prime sub to get a *sweet* savage emote! It's a great way to directly support Elvis!",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!raid",
 					"cooldown": 5,
 					"allowed": true,
-					"modOnly": false
+					"modOnly": false,
+					"message": "TombRaid twitchRaid TombRaid twitchRaid TombRaid twitchRaid TombRaid twitchRaid TombRaid twitchRaid",
+					"replaceStrings": ["$username"]
 				},
 				{
 					"trigger": "!so",
 					"cooldown": 5,
 					"leadText": "Go visit our $friend at ",
-					"followText": "and tell them how cool I am!",
+					"followText": " and tell them that they're awesome!",
 					"allowed": true,
 					"modOnly": false,
 					"replaceStrings": ["$friend"],
@@ -149,6 +159,27 @@
 					"leadText": "Watch us all at once at",
 					"followText": "layout4",
 					"multiProvider": "http://multistre.am/",
+					"allowed": true,
+					"modOnly": true
+				},
+				{
+					"trigger": "!poll",
+					"cooldown": 5,
+					"pollLength": 2,
+					"maxPercent": 75,
+					"minPercent": 25,
+					"allowed": true,
+					"modOnly": true
+				},
+				{
+					"trigger": "!vote",
+					"cooldown": 5,
+					"allowed": true,
+					"modOnly": false
+				},
+				{
+					"trigger": "!randomsub",
+					"cooldown": 5,
 					"allowed": true,
 					"modOnly": true
 				}

@@ -168,7 +168,7 @@ client.on('chat', function(channel, user, message, self) {
 						try {
 							if(!command.modOnly || (command.modOnly && checkMod(user, channel))) {
 								if (subSeconds(command.cooldown) >= Cooldowns[parsed.command]) {
-									client.say(channel, command.message.replace("$username", user['display-name']));
+									client.action(channel, command.message.replace("$username", user['display-name']));
 									Cooldowns[parsed.command] = new Date();
 								} else {
 									console.log("Lurk cooldown not up");

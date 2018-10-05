@@ -1,0 +1,2 @@
+node thatbot.js
+pause
