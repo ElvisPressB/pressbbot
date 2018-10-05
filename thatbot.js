@@ -46,16 +46,6 @@ client.on('connected', function(address, port) {
 });
 // end set up, connect and console log client information
 
-// various command cooldown variables
-const discordCD = 15;
-const hypeCD = 5;
-const instaCD = 15;
-const lurkCD = 5;
-const primeCD = 30;
-const raidCD = 5;
-const soCD = 5;
-const multiCD = 5;
-
 function subSeconds(numSeconds) {
 	var time = new Date();
 	time.setSeconds(time.getSeconds() - numSeconds);
@@ -95,6 +85,10 @@ function initOnJoin(channel){
 	liveSettings[channel].Cooldowns = func.initCooldowns(liveSettings[channel].Cooldowns, commands);
 	//client.color(typeof settings != "undefined" ? ( typeof settings.color == "string"? settings.color: "Red") : "Red");
 	client.color("Red");
+}
+
+function handle(err) {
+	const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
 }
 
 // ^^^^ Attempting to create a channel named object in memory upon joining a channel and store cooldowns on it ^^^^
@@ -153,7 +147,7 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!prime":
@@ -167,7 +161,7 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!lurk":
@@ -181,7 +175,7 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!insta":
@@ -195,7 +189,7 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!hype":
@@ -209,7 +203,7 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!discord": // discord command ?
@@ -223,14 +217,14 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!skynet":
 						try {
 							client.say(channel, "I'm sorry, I certainly don't know what you're talking about...");	
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!so":
@@ -260,7 +254,7 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!multi":
@@ -277,7 +271,7 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!poll":
@@ -310,7 +304,7 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!vote":
@@ -326,7 +320,7 @@ client.on('chat', function(channel, user, message, self) {
 								}
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					case "!randomsub":
@@ -337,7 +331,7 @@ client.on('chat', function(channel, user, message, self) {
 								});
 							}
 						} catch (err) {
-							const e = debugLevel === 1 ? console.log("Error: " + err.message) : debugLevel === 2 ? console.log("Error: " + err.stack) : null; 
+							handle(err);
 						}
 						break;
 					default:
