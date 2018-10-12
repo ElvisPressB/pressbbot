@@ -206,6 +206,20 @@ client.on('chat', function(channel, user, message, self) {
 							handle(err);
 						}
 						break;
+					case "!giveaway":
+						try {
+							if(!command.modOnly || (command.modOnly && checkMod(user, channel))) {
+								if (subSeconds(command.cooldown) >= Cooldowns[parsed.command]) {
+									client.say(channel, command.message.replace("$username", user['display-name']));
+									Cooldowns[parsed.command] = new Date();
+								} else {
+									console.log("Giveaway cooldown not up: " + Cooldowns[parsed.command]);
+								}
+							}
+						} catch (err) {
+							handle(err);
+						}
+						break;
 					case "!discord": // discord command ?
 						try {
 							if(!command.modOnly || (command.modOnly && checkMod(user, channel))) {
@@ -265,7 +279,7 @@ client.on('chat', function(channel, user, message, self) {
 									for (let word in parsed.argument) {
 										multiText += parsed.argument[word] + "/"
 									}
-									multiText += "layout4";
+									multiText += "";
 									client.say(channel, multiText);
 									Cooldowns[parsed.command] = new Date();
 								}

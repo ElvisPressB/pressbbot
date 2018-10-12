@@ -103,6 +103,14 @@
 					"replaceStrings": ["$username"]
 				},
 				{
+					"trigger": "!giveaway",
+					"cooldown": 15,
+					"allowed": true,
+					"modOnly": false,
+					"message": "To celebrate his 1 year anniversary on twitch Elvis is doing a giveaway Saturday, October 13, 2018 of 4 x $25 digital steam giftcards. All you need to do to be elidgeable to win is be subscribed as of Friday, October 12, 2018 at 11:59:59 PM MST. Limit 1 card per winner.",
+					"replaceStrings": ["$username"]
+				},
+				{
 					"trigger": "!hype",
 					"cooldown": 5,
 					"allowed": true,
@@ -157,8 +165,8 @@
 					"trigger": "!multi",
 					"cooldown": 5,
 					"leadText": "Watch us all at once at",
-					"followText": "layout4",
-					"multiProvider": "http://multistre.am/",
+					"followText": "",
+					"multiProvider": "www.kadgar.net/live/",
 					"allowed": true,
 					"modOnly": true
 				},
