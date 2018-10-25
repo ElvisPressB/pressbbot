@@ -245,23 +245,20 @@ client.on('chat', function(channel, user, message, self) {
 						try {
 							if (checkMod(user, channel)) {
 								if (subSeconds(command.cooldown) >= Cooldowns[parsed.command]) {
-									if (parsed.argument.length > 1) {
-										var soText = command.leadText;
-										for (let word in parsed.argument) {
-											if (word == parsed.argument.length-1) {
-												soText += "http://twitch.tv/" + parsed.argument[word] + " ";
-											} else {
-												soText += "http://twitch.tv/" + parsed.argument[word] + " & ";
-											}
+									var soText = command.leadText;
+									for (let word in parsed.argument) {
+										let name = parsed.argument[word];
+										if (name.charAt(0) == '@') { name = name.slice(1); }
+										if (word == parsed.argument.length-1) {
+											soText += "http://twitch.tv/" + name + " ";
+										} else {
+											soText += "http://twitch.tv/" + name + " & ";
 										}
-										soText += command.followText;
-										soText = soText.replace(command.replaceStrings, command.plural);
-										client.say(channel, soText);
-									} else {
-										var soText = command.leadText + " http://twitch.tv/" + parsed.argument + " " + command.followText;
-										soText = soText.replace(command.replaceStrings, command.singular);
-										client.say(channel, soText);
 									}
+									soText += command.followText;
+									let replaced = (parsed.argument.length > 1 ? command.plural : command.singular);
+									soText = soText.replace(command.replaceStrings, replaced);
+									client.say(channel, soText);
 									Cooldowns[parsed.command] = new Date();
 								} else {
 									console.log("Shoutout cooldown not up");
